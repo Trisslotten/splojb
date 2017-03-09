@@ -1,0 +1,22 @@
+
+
+
+mesh:
+	vertex data
+	material data
+	-
+	render(???)
+
+model:
+	many meshes;
+	-
+	render(???)
+	
+
+entity
+	model
+	components?
+
+
+renderer
+	draw("thing")
