@@ -153,10 +153,25 @@
     <Text Include="brainstorming.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Debug\assets\cone.mtl" />
     <None Include="..\Debug\assets\shaders\depth_frag.glsl" />
     <None Include="..\Debug\assets\shaders\depth_vert.glsl" />
     <None Include="..\Debug\assets\shaders\frag.glsl" />
     <None Include="..\Debug\assets\shaders\vert.glsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Debug\assets\4096_earth.png" />
+    <Image Include="..\Debug\assets\4096_normal.png" />
+    <Image Include="..\Debug\assets\diffuse.png" />
+    <Image Include="..\Debug\assets\ground.png" />
+    <Image Include="..\Debug\assets\ground_normal.png" />
+    <Image Include="..\Debug\assets\normal.png" />
+    <Image Include="..\Debug\assets\specular.png" />
+    <Image Include="..\Debug\assets\wall.png" />
+    <Image Include="..\Debug\assets\wall_normal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="..\Debug\assets\cone.obj" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

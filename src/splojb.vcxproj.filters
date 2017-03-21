@@ -16,6 +16,9 @@
     <Filter Include="Resource Files\shaders">
       <UniqueIdentifier>{910ba17a-7230-40a9-8990-decd9d197aa8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\assets">
+      <UniqueIdentifier>{3e764b61-6b20-4a9b-9706-b335623364a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -99,5 +102,42 @@
     <None Include="..\Debug\assets\shaders\vert.glsl">
       <Filter>Resource Files\shaders</Filter>
     </None>
+    <None Include="..\Debug\assets\cone.mtl">
+      <Filter>Resource Files\assets</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Debug\assets\4096_earth.png">
+      <Filter>Resource Files\assets</Filter>
+    </Image>
+    <Image Include="..\Debug\assets\4096_normal.png">
+      <Filter>Resource Files\assets</Filter>
+    </Image>
+    <Image Include="..\Debug\assets\diffuse.png">
+      <Filter>Resource Files\assets</Filter>
+    </Image>
+    <Image Include="..\Debug\assets\ground.png">
+      <Filter>Resource Files\assets</Filter>
+    </Image>
+    <Image Include="..\Debug\assets\ground_normal.png">
+      <Filter>Resource Files\assets</Filter>
+    </Image>
+    <Image Include="..\Debug\assets\normal.png">
+      <Filter>Resource Files\assets</Filter>
+    </Image>
+    <Image Include="..\Debug\assets\specular.png">
+      <Filter>Resource Files\assets</Filter>
+    </Image>
+    <Image Include="..\Debug\assets\wall.png">
+      <Filter>Resource Files\assets</Filter>
+    </Image>
+    <Image Include="..\Debug\assets\wall_normal.png">
+      <Filter>Resource Files\assets</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="..\Debug\assets\cone.obj">
+      <Filter>Resource Files\assets</Filter>
+    </Object>
   </ItemGroup>
 </Project>
