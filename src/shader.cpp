@@ -9,33 +9,37 @@ GLint Shader::compileShader(GLenum type, std::string name)
 {
 	GLuint shader = glCreateShader(type);
 	std::ifstream shaderFile(name);
-	std::string shaderText((std::istreambuf_iterator<char>(shaderFile)), std::istreambuf_iterator<char>());
-	shaderFile.close();
-	const char* shaderTextPtr = shaderText.c_str();
-
-	glShaderSource(shader, 1, &shaderTextPtr, nullptr);
-	glCompileShader(shader);
-
-
-	// Check for compile error
-	GLint success = 0;
-	glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
-	if (success == GL_FALSE)
+	if (shaderFile.is_open())
 	{
-		GLint log_size = 0;
-		glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &log_size);
-		std::vector<GLchar> error(log_size);
-		glGetShaderInfoLog(shader, log_size, &log_size, &error[0]);
-		std::string errorstr{ &error[0] };
+		std::string shaderText((std::istreambuf_iterator<char>(shaderFile)), std::istreambuf_iterator<char>());
+		shaderFile.close();
+		const char* shaderTextPtr = shaderText.c_str();
 
-		Log::errorln("\n" + errorstr);
+		glShaderSource(shader, 1, &shaderTextPtr, nullptr);
+		glCompileShader(shader);
 
-		glDeleteShader(shader);
-		Log::warningln("Shader '" + name + "' could not compile");
-		return -1;
+
+		// Check for compile error
+		GLint success = 0;
+		glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
+		if (success == GL_FALSE)
+		{
+			GLint log_size = 0;
+			glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &log_size);
+			std::vector<GLchar> error(log_size);
+			glGetShaderInfoLog(shader, log_size, &log_size, &error[0]);
+			std::string errorstr{ &error[0] };
+
+			Log::errorln("\n" + errorstr);
+
+			glDeleteShader(shader);
+			Log::warningln("Shader '" + name + "' could not compile");
+			return -1;
+		}
+
+		return (GLint)shader;
 	}
-
-	return (GLint)shader;
+	return -1;
 }
 
 bool Shader::createProgram(const std::string vert, const std::string frag)
@@ -85,6 +89,7 @@ void Shader::use()
 
 void Shader::reload()
 {
+	Log::debugln("Reloading shader: '" + this->vert_path + "', '" + this->frag_path + "'");
 	GLuint old_program = program;
 	bool success;
 	if (geom_path.size() > 0)

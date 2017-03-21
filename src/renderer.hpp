@@ -16,16 +16,18 @@ class Renderer
 		std::shared_ptr<Mesh> mesh;
 	};
 
-
 	std::vector<RenderObject> to_render;
 
 	Shader shader;
+	Shader depth_shader;
 
 public:
 	Renderer();
 	~Renderer();
 
 	void init();
+
+	void update();
 
 	// add to draw list (to_render)
 	void draw(std::shared_ptr<Mesh> mesh, std::shared_ptr<Material> material, glm::mat4 transform);

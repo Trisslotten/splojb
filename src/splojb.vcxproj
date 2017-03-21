@@ -126,31 +126,37 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="assets.cpp" />
     <ClCompile Include="debug.cpp" />
     <ClCompile Include="engine.cpp" />
+    <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="logger.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mesh.cpp" />
     <ClCompile Include="renderer.cpp" />
     <ClCompile Include="shader.cpp" />
+    <ClCompile Include="texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="assets.hpp" />
     <ClInclude Include="debug.hpp" />
     <ClInclude Include="engine.hpp" />
+    <ClInclude Include="lodepng.h" />
     <ClInclude Include="logger.hpp" />
     <ClInclude Include="material.hpp" />
     <ClInclude Include="mesh.hpp" />
     <ClInclude Include="renderer.hpp" />
     <ClInclude Include="shader.hpp" />
+    <ClInclude Include="texture.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="brainstorming.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Debug\shaders\frag.glsl" />
-    <Resource Include="..\Debug\shaders\vert.glsl">
-      <FileType>Document</FileType>
-    </Resource>
+    <None Include="..\Debug\assets\shaders\depth_frag.glsl" />
+    <None Include="..\Debug\assets\shaders\depth_vert.glsl" />
+    <None Include="..\Debug\assets\shaders\frag.glsl" />
+    <None Include="..\Debug\assets\shaders\vert.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

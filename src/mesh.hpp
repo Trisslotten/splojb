@@ -1,8 +1,12 @@
 #pragma once
 
 #include <vector>
+#include <unordered_map>
 #include <glm/glm.hpp>
 #include <GL/glew.h>
+#include <memory>
+#include "material.hpp"
+
 
 
 struct Vertex {
@@ -13,6 +17,15 @@ struct Vertex {
 
 class Mesh
 {
+public:
+	struct MeshPart
+	{
+		GLuint ebo;
+		std::vector<GLuint> indices;
+		std::shared_ptr<Material> material;
+	};
+
+private:
 	std::string name;
 	// If the mesh is loaded to the GPU
 	enum State
@@ -21,16 +34,25 @@ class Mesh
 		NOT_LOADED
 	} state;
 
-	GLuint vao, vbo, ebo;
+	
+
+	GLuint vao, vbo;
 
 	GLenum topology = GL_TRIANGLES;
 
-	std::vector<Vertex> vertices;
-	std::vector<GLuint> indices;
-public:
 
+public:
+	std::vector<Vertex> vertices;
+	std::unordered_map<std::string, MeshPart> parts;
+	
+	void addPart(const std::string& name, MeshPart part);
 	void load();
 	void unload();
+	inline bool loaded()
+	{
+		return state = LOADED;
+	}
+
 
 	void render();
 

@@ -39,6 +39,15 @@
     <ClCompile Include="debug.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="lodepng.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="assets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="logger.hpp">
@@ -62,6 +71,15 @@
     <ClInclude Include="debug.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="texture.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lodepng.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="assets.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="brainstorming.txt">
@@ -69,13 +87,17 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Debug\shaders\frag.glsl">
+    <None Include="..\Debug\assets\shaders\depth_frag.glsl">
       <Filter>Resource Files\shaders</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="..\Debug\shaders\vert.glsl">
+    <None Include="..\Debug\assets\shaders\depth_vert.glsl">
       <Filter>Resource Files\shaders</Filter>
-    </Resource>
+    </None>
+    <None Include="..\Debug\assets\shaders\frag.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="..\Debug\assets\shaders\vert.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

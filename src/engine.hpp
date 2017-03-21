@@ -1,12 +1,14 @@
 #pragma once
 
 #include "renderer.hpp"
+#include "assets.hpp"
 
 class Engine
 {
 	Renderer renderer;
 
-	std::shared_ptr<Mesh> mesh;
+	Assets assets;
+	
 	double angle;
 public:
 	void init();
