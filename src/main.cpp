@@ -35,6 +35,7 @@ int main(int argc, char *argv[])
 	}
 	glfwMakeContextCurrent(window);
 	glfwSwapInterval(1);
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	GLenum err = glewInit();
 	if (err != GLEW_OK)
@@ -57,6 +58,11 @@ int main(int argc, char *argv[])
 		engine.render();
 		glfwSwapBuffers(window);
 		glfwPollEvents();
+		GLFWwindow* window = glfwGetCurrentContext();
+		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+		{
+			glfwSetWindowShouldClose(window, GLFW_TRUE);
+		}
 	}
 
 	glfwDestroyWindow(window);

@@ -51,6 +51,9 @@
     <ClCompile Include="assets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="simplexnoise1234.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="logger.hpp">
@@ -83,10 +86,22 @@
     <ClInclude Include="assets.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="simplexnoise1234.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="voxeloctree.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="brainstorming.txt">
       <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="..\Debug\assets\cone.obj">
+      <Filter>Resource Files\assets</Filter>
     </Text>
   </ItemGroup>
   <ItemGroup>
@@ -96,14 +111,29 @@
     <None Include="..\Debug\assets\shaders\depth_vert.glsl">
       <Filter>Resource Files\shaders</Filter>
     </None>
-    <None Include="..\Debug\assets\shaders\frag.glsl">
-      <Filter>Resource Files\shaders</Filter>
-    </None>
-    <None Include="..\Debug\assets\shaders\vert.glsl">
-      <Filter>Resource Files\shaders</Filter>
-    </None>
     <None Include="..\Debug\assets\cone.mtl">
       <Filter>Resource Files\assets</Filter>
+    </None>
+    <None Include="..\Debug\assets\shaders\geometry_frag.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="..\Debug\assets\shaders\geometry_geom.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="..\Debug\assets\shaders\geometry_vert.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="..\Debug\assets\shaders\shading_frag.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="..\Debug\assets\shaders\shading_vert.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="..\Debug\assets\shaders\postprocess_vert.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="..\Debug\assets\shaders\postprocess_frag.glsl">
+      <Filter>Resource Files\shaders</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -134,10 +164,5 @@
     <Image Include="..\Debug\assets\wall_normal.png">
       <Filter>Resource Files\assets</Filter>
     </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <Object Include="..\Debug\assets\cone.obj">
-      <Filter>Resource Files\assets</Filter>
-    </Object>
   </ItemGroup>
 </Project>

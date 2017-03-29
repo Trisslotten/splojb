@@ -79,6 +79,7 @@
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)/lib/glew-2.0.0/lib/Release/Win32/;$(SolutionDir)/lib/glfw-3.2.1/lib-vc2015/</AdditionalLibraryDirectories>
       <AdditionalDependencies>glew32s.lib;glew32.lib;opengl32.lib;glfw3.lib;glfw3dll.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <StackReserveSize>30000000</StackReserveSize>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -91,6 +92,7 @@
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)/lib/glew-2.0.0/lib/Release/Win32/;$(SolutionDir)/lib/glfw-3.2.1/lib-vc2015/</AdditionalLibraryDirectories>
       <AdditionalDependencies>glew32s.lib;glew32.lib;opengl32.lib;glfw3.lib;glfw3dll.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <StackReserveSize>30000000</StackReserveSize>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -107,6 +109,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>$(SolutionDir)/lib/glew-2.0.0/lib/Release/Win32/;$(SolutionDir)/lib/glfw-3.2.1/lib-vc2015/</AdditionalLibraryDirectories>
       <AdditionalDependencies>glew32s.lib;glew32.lib;opengl32.lib;glfw3.lib;glfw3dll.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <StackReserveSize>30000000</StackReserveSize>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -123,6 +126,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>$(SolutionDir)/lib/glew-2.0.0/lib/Release/Win32/;$(SolutionDir)/lib/glfw-3.2.1/lib-vc2015/</AdditionalLibraryDirectories>
       <AdditionalDependencies>glew32s.lib;glew32.lib;opengl32.lib;glfw3.lib;glfw3dll.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <StackReserveSize>30000000</StackReserveSize>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -135,10 +139,12 @@
     <ClCompile Include="mesh.cpp" />
     <ClCompile Include="renderer.cpp" />
     <ClCompile Include="shader.cpp" />
+    <ClCompile Include="simplexnoise1234.cpp" />
     <ClCompile Include="texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="assets.hpp" />
+    <ClInclude Include="camera.hpp" />
     <ClInclude Include="debug.hpp" />
     <ClInclude Include="engine.hpp" />
     <ClInclude Include="lodepng.h" />
@@ -147,7 +153,9 @@
     <ClInclude Include="mesh.hpp" />
     <ClInclude Include="renderer.hpp" />
     <ClInclude Include="shader.hpp" />
+    <ClInclude Include="simplexnoise1234.h" />
     <ClInclude Include="texture.hpp" />
+    <ClInclude Include="voxeloctree.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="brainstorming.txt" />
@@ -156,8 +164,13 @@
     <None Include="..\Debug\assets\cone.mtl" />
     <None Include="..\Debug\assets\shaders\depth_frag.glsl" />
     <None Include="..\Debug\assets\shaders\depth_vert.glsl" />
-    <None Include="..\Debug\assets\shaders\frag.glsl" />
-    <None Include="..\Debug\assets\shaders\vert.glsl" />
+    <None Include="..\Debug\assets\shaders\geometry_frag.glsl" />
+    <None Include="..\Debug\assets\shaders\geometry_geom.glsl" />
+    <None Include="..\Debug\assets\shaders\geometry_vert.glsl" />
+    <None Include="..\Debug\assets\shaders\postprocess_frag.glsl" />
+    <None Include="..\Debug\assets\shaders\postprocess_vert.glsl" />
+    <None Include="..\Debug\assets\shaders\shading_frag.glsl" />
+    <None Include="..\Debug\assets\shaders\shading_vert.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Debug\assets\4096_earth.png" />
@@ -171,7 +184,13 @@
     <Image Include="..\Debug\assets\wall_normal.png" />
   </ItemGroup>
   <ItemGroup>
-    <Object Include="..\Debug\assets\cone.obj" />
+    <Text Include="..\Debug\assets\cone.obj">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+    </Text>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

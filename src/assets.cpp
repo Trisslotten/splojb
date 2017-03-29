@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include "logger.hpp"
 
 
 
@@ -343,7 +344,8 @@ std::shared_ptr<Texture> Assets::loadTextureIfNotLoaded(const std::string & file
 		to_add = std::make_shared<Texture>();
 		to_add->load(filepath, true);
 		textures[filepath] = to_add;
-	}
+		Log::debugln("Not found. Adding! (" + filepath + ")");
+	} 
 	return to_add;
 }
 
@@ -386,8 +388,9 @@ void Assets::loadMesh(const std::string & filepath)
 			if (!map_elem.first.empty())
 			{
 				part.material = std::make_shared<Material>();
-				if(!material.map_Kd.empty()) 
-					part.material->albedo = loadTextureIfNotLoaded(directory + material.map_Kd);
+				if(!material.map_Kd.empty()) {
+					part.material->color = loadTextureIfNotLoaded(directory + material.map_Kd);
+				}
 				if (!material.map_n.empty())
 					part.material->normal = loadTextureIfNotLoaded(directory + material.map_n);
 				if (!material.map_Ks.empty())
@@ -399,7 +402,7 @@ void Assets::loadMesh(const std::string & filepath)
 		for (auto face : loaded_data.faces)
 		{
 			glm::vec3 normal;
-			if (!loaded_data.hasNorm)
+			//if (!loaded_data.hasNorm)
 			{
 				glm::vec3 p1 = loaded_data.vertices[face.indices[0].v - 1];
 				glm::vec3 p2 = loaded_data.vertices[face.indices[1].v - 1];
@@ -428,8 +431,7 @@ void Assets::loadMesh(const std::string & filepath)
 
 				if (loaded_data.hasNorm)
 				{
-					auto n = loaded_data.normals[face.indices[i].n - 1];
-					v.normal = n;
+					v.normal = loaded_data.normals[face.indices[i].n - 1];;
 				}
 				else
 				{

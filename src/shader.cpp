@@ -57,6 +57,23 @@ bool Shader::createProgram(const std::string vert, const std::string frag)
 	glAttachShader(program, vs);
 	glLinkProgram(program);
 
+	GLint success = 0;
+	glGetProgramiv(program, GL_LINK_STATUS, &success);
+	if (success == GL_FALSE)
+	{
+		GLint log_size = 0;
+		glGetProgramiv(program, GL_INFO_LOG_LENGTH, &log_size);
+		std::vector<GLchar> error(log_size);
+		glGetProgramInfoLog(program, log_size, &log_size, &error[0]);
+		std::string errorstr{ &error[0] };
+
+		Log::errorln("\n" + errorstr);
+
+		glDeleteProgram(program);
+		Log::warningln("Program '" + vert + "' could not link");
+		return false;
+	}
+
 	return true;
 }
 
@@ -77,6 +94,23 @@ bool Shader::createProgram(const std::string vert, const std::string geom, const
 	glAttachShader(program, gs);
 	glAttachShader(program, vs);
 	glLinkProgram(program);
+
+	GLint success = 0;
+	glGetProgramiv(program, GL_LINK_STATUS, &success);
+	if (success == GL_FALSE)
+	{
+		GLint log_size = 0;
+		glGetProgramiv(program, GL_INFO_LOG_LENGTH, &log_size);
+		std::vector<GLchar> error(log_size);
+		glGetProgramInfoLog(program, log_size, &log_size, &error[0]);
+		std::string errorstr{ &error[0] };
+
+		Log::errorln("\n" + errorstr);
+
+		glDeleteProgram(program);
+		Log::warningln("Program '" + vert + "' could not link");
+		return false;
+	}
 
 	return true;
 }

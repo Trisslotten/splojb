@@ -29,9 +29,9 @@ void Mesh::load()
 		// Positions
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), BUFFER_OFFSET(0));
 		// Normals
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), BUFFER_OFFSET(3 * sizeof(GLfloat)));
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), BUFFER_OFFSET(sizeof(glm::vec3)));
 		// Tex coords
-		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), BUFFER_OFFSET(6 * sizeof(GLfloat)));
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), BUFFER_OFFSET(2*sizeof(glm::vec3)));
 
 		for (auto&& map_part : parts)
 		{
@@ -67,15 +67,22 @@ void Mesh::render()
 	}
 
 	glBindVertexArray(vao);
+	
 	for (auto&& map_part : parts)
 	{
 		MeshPart& mesh_part = map_part.second;
-		if(mesh_part.material->albedo)
-			mesh_part.material->albedo->bind(4);
-		if(mesh_part.material->normal)
-			mesh_part.material->normal->bind(5);
-		if (mesh_part.material->specular)
-			mesh_part.material->specular->bind(6);
+		if (mesh_part.material)
+		{
+			if (mesh_part.material->color) {
+				mesh_part.material->color->bind(6);
+			}
+			if (mesh_part.material->normal) {
+				mesh_part.material->normal->bind(7);
+			}
+			if (mesh_part.material->specular) {
+				mesh_part.material->specular->bind(8);
+			}
+		}
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh_part.ebo);
 		glDrawElements(GL_TRIANGLES, mesh_part.indices.size(), GL_UNSIGNED_INT, 0);
 	}

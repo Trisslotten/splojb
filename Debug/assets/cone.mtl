@@ -10,7 +10,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd ground.png
+map_Kd texture.png
 map_Ks specular.png
 map_n ground_normal.png
 
@@ -23,6 +23,6 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd wall.png
+map_Kd texture.png
 map_Ks specular.png
 map_n wall_normal.png
