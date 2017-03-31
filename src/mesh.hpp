@@ -34,12 +34,8 @@ private:
 		NOT_LOADED
 	} state;
 
-	
-
 	GLuint vao, vbo;
-
-	GLenum topology = GL_TRIANGLES;
-
+	GLenum primitive = GL_TRIANGLES;
 
 public:
 	std::vector<Vertex> vertices;
@@ -50,7 +46,7 @@ public:
 	void unload();
 	inline bool loaded()
 	{
-		return state = LOADED;
+		return state == LOADED;
 	}
 
 

@@ -84,7 +84,7 @@ void Mesh::render()
 			}
 		}
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh_part.ebo);
-		glDrawElements(GL_TRIANGLES, mesh_part.indices.size(), GL_UNSIGNED_INT, 0);
+		glDrawElements(primitive, mesh_part.indices.size(), GL_UNSIGNED_INT, 0);
 	}
 	glBindVertexArray(0);
 }

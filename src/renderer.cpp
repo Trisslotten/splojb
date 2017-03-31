@@ -63,6 +63,8 @@ void Renderer::init()
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_FLOAT, nullptr);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1, GL_TEXTURE_2D, texture_color, 0);
 
 	glGenTextures(1, &texture_normal);
@@ -106,6 +108,8 @@ void Renderer::init()
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_FLOAT, nullptr);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture_postprocess, 0);
 	glDrawBuffers(1, att);
 
@@ -146,13 +150,9 @@ void Renderer::update(double dt)
 	camera.update(dt);
 }
 
-void Renderer::draw(std::shared_ptr<Mesh> mesh, std::shared_ptr<Material> material, Transforms transforms)
+void Renderer::draw(Entity& entity)
 {
-	RenderObject obj;
-	obj.mesh = mesh;
-	obj.material = material;
-	obj.transforms = transforms;
-	to_render.push_back(obj);
+	to_render.push_back(entity);
 }
 
 void printVec(glm::vec3 vec)
@@ -165,7 +165,8 @@ void printVec(glm::vec4 vec)
 	std::cout << vec.x << " " << vec.y << " " << vec.z << " " << vec.w << "\n";
 }
 
-void Renderer::render()
+
+void Renderer::render(double dt)
 {
 	int width, height;
 	GLFWwindow* window = glfwGetCurrentContext();
@@ -183,31 +184,18 @@ void Renderer::render()
 
 	
 	glUniformMatrix4fv(glGetUniformLocation(shader_geometry.getProgram(), "view_projection"), 1, false, glm::value_ptr(view_projection));
+	glUniformMatrix4fv(glGetUniformLocation(shader_geometry.getProgram(), "prev_view_projection"), 1, false, glm::value_ptr(prev_view_projection));
+	glUniform1f(glGetUniformLocation(shader_geometry.getProgram(), "dt"), dt);
 
-	glm::vec3 scale, translation, skew, axis;
-	float angle;
-	glm::quat orientation;
-	glm::vec4 perspective;
-	for (auto& obj : to_render)
+	prev_view_projection = view_projection;
+
+	for (auto& entity : to_render)
 	{
-		auto trans = obj.transforms;
-		glm::mat4 diff = glm::inverse(trans.old)*trans.transform;
 
-		glm::decompose(view_projection, scale, orientation, translation, skew, perspective);
-		glm::axisAngle(view_projection, axis, angle);
-
-
-		//printVec(translation);
-		printVec(skew);
-		//printVec(perspective);
-		//std::cout << angle << "\n";
-
-		glUniform3fv(glGetUniformLocation(shader_geometry.getProgram(), "u_axis"), 1, glm::value_ptr(axis));
-		glUniform3fv(glGetUniformLocation(shader_geometry.getProgram(), "u_translation"), 1, glm::value_ptr(translation));
-		glUniform1f(glGetUniformLocation(shader_geometry.getProgram(), "u_angle"), angle);
-		glUniform1f(glGetUniformLocation(shader_geometry.getProgram(), "dt"), trans.dt);
-		glUniformMatrix4fv(glGetUniformLocation(shader_geometry.getProgram(), "model"), 1, false, glm::value_ptr(obj.transforms.transform));
-		obj.mesh->render();
+		//glUniform1f(glGetUniformLocation(shader_geometry.getProgram(), "dt"), trans.dt);
+		glUniformMatrix4fv(glGetUniformLocation(shader_geometry.getProgram(), "model"), 1, false, glm::value_ptr(entity.model));
+		glUniformMatrix4fv(glGetUniformLocation(shader_geometry.getProgram(), "prev_model"), 1, false, glm::value_ptr(entity.prev_model));
+		entity.mesh->render();
 	}
 	to_render.clear();
 

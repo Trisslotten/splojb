@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
 		pauseExit();
 	}
 	glfwMakeContextCurrent(window);
-	glfwSwapInterval(1);
+	glfwSwapInterval(0);
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	GLenum err = glewInit();
@@ -49,13 +49,38 @@ int main(int argc, char *argv[])
 	glfwGetFramebufferSize(window, &width, &height);
 	glViewport(0, 0, width, height);
 
-	double last_time = glfwGetTime();
+	double last_update = glfwGetTime();
+	double last_render = glfwGetTime();
+
+
+	int frames = 0;
+	double sum_frametimes = 0;
+	double start = glfwGetTime();
+
 	while (!glfwWindowShouldClose(window))
 	{
-		double dt = glfwGetTime() - last_time;
-		last_time = glfwGetTime();
+
+		double dt = glfwGetTime() - last_update;
+		last_update = glfwGetTime();
 		engine.update(dt);
-		engine.render();
+
+		dt = glfwGetTime() - last_render;
+		last_render = glfwGetTime();
+		engine.render(dt);
+
+		double frametime = glfwGetTime() - start;
+		start = glfwGetTime();
+		sum_frametimes += frametime;
+		frames++;
+		if (sum_frametimes >= 1)
+		{
+			double average_frametime = sum_frametimes/frames;
+			frames = 0;
+			sum_frametimes = 0;
+			std::string new_title = title + " FPS: " + std::to_string((int)round(1.0 / average_frametime));
+			glfwSetWindowTitle(window, new_title.c_str());
+		}
+
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 		GLFWwindow* window = glfwGetCurrentContext();

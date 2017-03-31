@@ -7,8 +7,8 @@ in vec2 tex_coords;
 
 layout(location = 0) out vec4 out_color;
 
-const float samples = 25.0;
-const float size_mult = 0.002;
+const float samples = 21.0;
+const float size_mult = 0.01;
 
 void main() {
 	vec3 color = vec3(0);
@@ -24,11 +24,13 @@ void main() {
 			t += 2.0*speed/samples;
 			color += texture(tex_color, tex_coords + t*line_dir).rgb/samples;
 		}
+	} else {
+		color = texture(tex_color, tex_coords).rgb;
 	}
-	speed = clamp(length(velocity), 0.0, 1.0);
-	color = mix(texture(tex_color, tex_coords).rgb, color, speed);
+	//speed = clamp(length(velocity), 0.0, 1.0);
+	
 
-	//color = vec3(velocity, 0.0);
+	//color = vec3(abs(velocity), 0.0);
 
 	out_color = vec4(color, 1.0);
 }

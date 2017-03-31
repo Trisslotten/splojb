@@ -95,6 +95,9 @@
     <ClInclude Include="voxeloctree.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="entity.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="brainstorming.txt">

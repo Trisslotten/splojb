@@ -444,5 +444,7 @@ void Assets::loadMesh(const std::string & filepath)
 			}
 		}
 	}
-	meshes[loaded_data.name] = result;
+	//meshes[loaded_data.name] = result;
+	meshes[filepath] = result;
+
 }

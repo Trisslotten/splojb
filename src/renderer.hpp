@@ -7,27 +7,14 @@
 #include "material.hpp"
 #include "shader.hpp"
 #include "camera.hpp"
+#include "entity.hpp"
 
 class Renderer
 {
 
-public:
-	struct Transforms
-	{
-		glm::mat4 transform;
-		glm::mat4 old;
-		float dt;
-	};
-
 private:
-	struct RenderObject
-	{
-		Transforms transforms;
-		std::shared_ptr<Material> material;
-		std::shared_ptr<Mesh> mesh;
-	};
 
-	std::vector<RenderObject> to_render;
+	std::vector<Entity> to_render;
 
 	GLuint g_buffer, postprocess, depth;
 	GLuint texture_position, texture_color, texture_normal, texture_velocity, texture_postprocess;
@@ -37,6 +24,8 @@ private:
 	Shader shader_geometry;
 	Shader shader_shading;
 	Shader shader_postprocess;
+
+	glm::mat4 prev_view_projection;
 
 	Camera camera;
 public:
@@ -49,10 +38,10 @@ public:
 
 
 	// add to draw list (to_render)
-	void draw(std::shared_ptr<Mesh> mesh, std::shared_ptr<Material> material, Transforms transforms);
+	void draw(Entity& entity);
 
 
 	// render everything in to_render
-	void render();
+	void render(double dt);
 };
 

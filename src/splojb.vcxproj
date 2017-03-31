@@ -147,6 +147,7 @@
     <ClInclude Include="camera.hpp" />
     <ClInclude Include="debug.hpp" />
     <ClInclude Include="engine.hpp" />
+    <ClInclude Include="entity.hpp" />
     <ClInclude Include="lodepng.h" />
     <ClInclude Include="logger.hpp" />
     <ClInclude Include="material.hpp" />
